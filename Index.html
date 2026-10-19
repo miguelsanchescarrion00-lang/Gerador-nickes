@@ -1,1 +1,390 @@
 
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NameForge AI — Gerador de nomes para Instagram</title>
+
+  <style>
+    :root {
+      --bg: #080b16;
+      --card: rgba(20, 25, 45, 0.78);
+      --text: #f8f9ff;
+      --muted: #a7aec7;
+      --primary: #8b5cf6;
+      --secondary: #ec4899;
+      --border: rgba(255,255,255,.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #30206b 0, transparent 35%),
+        radial-gradient(circle at bottom right, #5b174e 0, transparent 30%),
+        var(--bg);
+    }
+
+    header {
+      width: min(1180px, 92%);
+      margin: auto;
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+
+    .logo span {
+      color: #c084fc;
+    }
+
+    .badge {
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: #ddd6fe;
+      background: rgba(255,255,255,.06);
+      font-size: .85rem;
+    }
+
+    main {
+      width: min(1180px, 92%);
+      margin: 45px auto 70px;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 6vw, 5rem);
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #c084fc, #f472b6);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.6;
+    }
+
+    .generator {
+      margin: 42px auto 0;
+      max-width: 850px;
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 25px 80px rgba(0,0,0,.3);
+    }
+
+    .input-area {
+      display: flex;
+      gap: 12px;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      outline: none;
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      border-radius: 13px;
+      padding: 16px;
+      font-size: 1rem;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    select option {
+      color: #111827;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      color: white;
+      font-weight: 700;
+      border-radius: 13px;
+      padding: 0 22px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transition: .2s ease;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12);
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .results-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 45px 0 18px;
+    }
+
+    .results-title h2 {
+      font-size: 1.4rem;
+    }
+
+    .results-title span {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .name-card {
+      position: relative;
+      padding: 22px;
+      min-height: 125px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      transition: .2s ease;
+    }
+
+    .name-card:hover {
+      transform: translateY(-4px);
+      border-color: #a78bfa;
+      background: rgba(139,92,246,.13);
+    }
+
+    .name-card strong {
+      display: block;
+      font-size: 1.15rem;
+      word-break: break-word;
+      margin-bottom: 18px;
+    }
+
+    .copy-btn {
+      padding: 8px 12px;
+      font-size: .8rem;
+      background: rgba(255,255,255,.1);
+      border: 1px solid var(--border);
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 55px;
+    }
+
+    .feature {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+    }
+
+    .feature .icon {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+    }
+
+    .feature h3 {
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: .92rem;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 25px;
+      font-size: .9rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translate(-50%, 100px);
+      padding: 13px 20px;
+      border-radius: 999px;
+      background: #171b2d;
+      border: 1px solid var(--border);
+      opacity: 0;
+      transition: .3s ease;
+      z-index: 10;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    @media (max-width: 760px) {
+      header {
+        padding-top: 18px;
+      }
+
+      .badge {
+        display: none;
+      }
+
+      main {
+        margin-top: 35px;
+      }
+
+      .input-area {
+        flex-direction: column;
+      }
+
+      button {
+        padding: 15px;
+      }
+
+      .options,
+      .results,
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">Name<span>Forge</span> AI</div>
+    <div class="badge">500+ ideias criativas</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Seu nome. Sua <span>identidade.</span></h1>
+      <p>
+        Gere nomes estilosos, únicos e memoráveis para Instagram em poucos segundos.
+        Transforme “Miguel” em algo como <b>Migglxx7_snches</b>.
+      </p>
+    </section>
+
+    <section class="generator">
+      <div class="input-area">
+        <input id="nameInput" type="text" placeholder="Digite seu nome, apelido ou palavra..." />
+        <button id="generateBtn">✨ Gerar nomes</button>
+      </div>
+
+      <div class="options">
+        <select id="styleSelect">
+          <option value="aleatorio">Estilo aleatório</option>
+          <option value="moderno">Moderno</option>
+          <option value="gamer">Gamer</option>
+          <option value="elegante">Elegante</option>
+          <option value="curto">Curto</option>
+          <option value="aesthetic">Aesthetic</option>
+        </select>
+
+        <select id="quantitySelect">
+          <option value="6">6 sugestões</option>
+          <option value="9">9 sugestões</option>
+          <option value="12">12 sugestões</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <div class="results-title">
+        <h2>Suas sugestões</h2>
+        <span id="counter">6 nomes gerados</span>
+      </div>
+
+      <div id="results" class="results"></div>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <div class="icon">⚡</div>
+        <h3>Rápido</h3>
+        <p>Crie várias opções de nomes instantaneamente, sem complicação.</p>
+      </div>
+
+      <div class="feature">
+        <div class="icon">🎨</div>
+        <h3>Estiloso</h3>
+        <p>Escolha entre estilos modernos, gamers, elegantes e aesthetic.</p>
+      </div>
+
+      <div class="feature">
+        <div class="icon">📋</div>
+        <h3>Copie fácil</h3>
+        <p>Gostou de uma sugestão? Copie com apenas um clique.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 NameForge AI — Feito para destacar seu perfil.
+  </footer>
+
+  <div id="toast" class="toast">Nome copiado!</div>
+
+  <script>
+    const nameInput = document.getElementById("nameInput");
+    const generateBtn = document.getElementById("generateBtn");
+    const styleSelect = document.getElementById("styleSelect");
+    const quantitySelect = document.getElementById("quantitySelect");
+    const results = document.getElementById("results");
+    const counter = document.getElementById("counter");
+    const toast = document.getElementById("toast");
+
+    const prefixes = [
+      "its", "real", "hey", "the", "only", "iam", "mr", "official",
+      "x", "not", "just", "this", "im"
+    ];
+
+    const suffixes = [
+      "ofc", "7", "77", "
